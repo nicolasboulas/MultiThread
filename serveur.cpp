@@ -62,29 +62,31 @@ int serveur::start()
 	while (running)
 	{
 		clientSocket = accept(listening, (sockaddr*)&client, &clientsize);
+		char host[NI_MAXHOST];
+		char service[NI_MAXHOST];
+
+	
+
+		ZeroMemory(host, NI_MAXHOST);
+		ZeroMemory(service, NI_MAXHOST);
+
+		std::cout << "connecte sur le port " << service << std::endl;
+
+		if (getnameinfo((sockaddr*)&client, sizeof(client), host, NI_MAXHOST, service, NI_MAXSERV, 0) == 0)
+		{
+			std::cout << host << "conectÃ© sur le port " << service << std::endl;
+		}
+		else
+		{
+			inet_ntop(AF_INET, &client.sin_addr, host, NI_MAXHOST);
+			std::cout << "connectÃ©";
+		}
+
+		p.ser = this;
+		p.soc = clientSocket;
 	}
 
-	char host[NI_MAXHOST];
-	char service[NI_MAXHOST];
-
-
-	ZeroMemory(host, NI_MAXHOST);
-	ZeroMemory(service, NI_MAXHOST);
-
-	std::cout << host << "connecte sur le port " << service << std::endl;
-
-	if (getnameinfo((sockaddr*)&client, sizeof(client), host, NI_MAXHOST, service, NI_MAXSERV, 0) == 0)
-	{
-		std::cout << host << "conecté sur le port " << service << std::endl;
-	}
-	else
-	{
-		inet_ntop(AF_INET, &client.sin_addr, host, NI_MAXHOST);
-		std::cout << "connecté";
-	}
-
-	p.ser = this;
-	p.soc = clientSocket;
+	
 
 	//hProcessthread = CreateThread(NULL, 0, &serveur::ThreadLauncher, &p, 0, NULL);
 
