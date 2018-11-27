@@ -6,11 +6,6 @@ serveur::serveur()
 	running = false;
 }
 
-DWORD WINAPI mythread(void* arg)
-{
-	std::cout << "cest connecte" << std::endl;
-	return 0;
-}
 
 int serveur::init()
 {
