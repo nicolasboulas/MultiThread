@@ -80,6 +80,22 @@ int serveur::start()
 			std::cout << "connecté";
 		} 
 		
+		int n = 0;
+		
+		while (1)
+		{
+			char buffer[1024];
+
+
+			if ((n = recv(clientSocket, buffer, 1024, 0)) != 1)
+			{
+				send(clientSocket, "cest recu", 100, 0);
+
+
+				std::cout << std::string(buffer, 0, n) << std::endl;
+			}
+		}
+		
 	}
 
 	
